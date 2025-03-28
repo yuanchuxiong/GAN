@@ -6,9 +6,16 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 import random
+import argparse
 
-from utils import get_celeba
+from utils import get_data
 from dcgan import weights_init, Generator, Discriminator
+
+
+parser = argparse.ArgumentParser()
+parser.add_argument('-dataset', default='data', help='data set path')
+args = parser.parse_args()
+
 
 # Set random seed for reproducibility.
 seed = 369
@@ -27,14 +34,23 @@ params = {
     'nepochs' : 10,# Number of training epochs.
     'lr' : 0.0002,# Learning rate for optimizers
     'beta1' : 0.5,# Beta1 hyperparam for Adam optimizer
-    'save_epoch' : 2}# Save step.
+    'save_epoch' : 2
+}# Save step.
+
+if args.dataset == 'celeba':
+    params['dataset_path'] = 'data/celeba'
+elif args.dataset == 'cifar-10':
+    params['dataset_path'] = 'data/cifar-10/train'
+else:
+    params['dataset_path'] = 'data'
 
 # Use GPU is available else use CPU.
 device = torch.device("cuda:0" if(torch.cuda.is_available()) else "cpu")
 print(device, " will be used.\n")
 
 # Get the data.
-dataloader = get_celeba(params)
+
+dataloader = get_data(params)
 
 # Plot the training images.
 sample_batch = next(iter(dataloader))

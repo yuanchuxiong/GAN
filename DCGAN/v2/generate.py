@@ -9,6 +9,7 @@ import random
 
 from dcgan import Generator
 
+
 parser = argparse.ArgumentParser()
 parser.add_argument('-load_path', default='model/model_default.pth', help='Checkpoint to load path from')
 parser.add_argument('-num_output', default=64, help='Number of generated outputs')

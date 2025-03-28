@@ -3,9 +3,8 @@ import torchvision.transforms as transforms
 import torchvision.datasets as dset
 
 # Directory containing the data.
-root = 'data/celeba'
 
-def get_celeba(params):
+def get_data(params):
     """
     Loads the dataset and applies proproccesing steps to it.
     Returns a PyTorch DataLoader.
@@ -20,7 +19,7 @@ def get_celeba(params):
             (0.5, 0.5, 0.5))])
 
     # Create the dataset.
-    dataset = dset.ImageFolder(root=root, transform=transform)
+    dataset = dset.ImageFolder(root=params['dataset_path'], transform=transform)
 
     # Create the dataloader.
     dataloader = torch.utils.data.DataLoader(dataset,
